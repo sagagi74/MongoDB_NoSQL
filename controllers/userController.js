@@ -5,29 +5,29 @@ module.exports = {
   // Get all users from the database
   getUsers(req, res) {
     User.find()
-      .then((users) => res.json(users)) // Send back all users as JSON
-      .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
+      .then((users) => res.json(users)) 
+      .catch((err) => res.status(500).json(err)); 
   },
 
   // Get a single user by their ID
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
-      .select('-__v') // Don't include the version key in the result
+      .select('-__v') 
       .populate('thoughts') // Include thoughts associated with the user
       .populate('friends') // Include friends associated with the user
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No user with that ID' }) // If no user, send a 404 status
-          : res.json(user) // Otherwise, send the user back as JSON
+          ? res.status(404).json({ message: 'No user with that ID' }) 
+          : res.json(user) 
       )
-      .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
+      .catch((err) => res.status(500).json(err)); 
   },
 
   // Create a new user
   createUser(req, res) {
     User.create(req.body)
-      .then((user) => res.json(user)) // Send back the newly created user as JSON
-      .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
+      .then((user) => res.json(user)) 
+      .catch((err) => res.status(500).json(err)); 
   },
 
   // Update a user by their ID
@@ -39,10 +39,10 @@ module.exports = {
     )
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No user with this id!' }) // If no user, send a 404 status
-          : res.json(user) // Otherwise, send the updated user back as JSON
+          ? res.status(404).json({ message: 'No user with this id!' }) 
+          : res.json(user) 
       )
-      .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
+      .catch((err) => res.status(500).json(err)); 
   },
 
   // Delete a user by their ID
@@ -50,11 +50,11 @@ module.exports = {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No user with that ID' }) // If no user, send a 404 status
-          : Thought.deleteMany({ _id: { $in: user.thoughts } }) // Delete all thoughts associated with this user
+          ? res.status(404).json({ message: 'No user with that ID' }) 
+          : Thought.deleteMany({ _id: { $in: user.thoughts } }) 
       )
-      .then(() => res.json({ message: 'User and associated thoughts deleted!' })) // Send a success message
-      .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
+      .then(() => res.json({ message: 'User and associated thoughts deleted!' })) 
+      .catch((err) => res.status(500).json(err)); 
   },
 
   // Add a friend to a user's friend list
@@ -66,10 +66,10 @@ module.exports = {
     )
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No user with this id!' }) // If no user, send a 404 status
-          : res.json(user) // Otherwise, send the updated user back as JSON
+          ? res.status(404).json({ message: 'No user with this id!' }) 
+          : res.json(user) 
       )
-      .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
+      .catch((err) => res.status(500).json(err)); 
   },
 
   // Remove a friend from a user's friend list
@@ -81,9 +81,9 @@ module.exports = {
     )
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No user with this id!' }) // If no user, send a 404 status
-          : res.json(user) // Otherwise, send the updated user back as JSON
+          ? res.status(404).json({ message: 'No user with this id!' }) 
+          : res.json(user) 
       )
-      .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
+      .catch((err) => res.status(500).json(err)); 
   },
 };

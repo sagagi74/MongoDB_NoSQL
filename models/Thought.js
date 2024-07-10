@@ -1,65 +1,60 @@
 const { Schema, model, Types } = require('mongoose');
 
-// Schema for reactions (like replies to thoughts)
+// Schema for reactions
 const reactionSchema = new Schema({
   reactionId: {
     type: Schema.Types.ObjectId,
-    default: () => new Types.ObjectId() // Automatically create a new ObjectId
+    default: () => new Types.ObjectId() // Auto-generate ObjectId
   },
   reactionBody: {
     type: String,
-    required: true, // This field is required
-    maxlength: 280 // Maximum length of 280 characters
+    required: true, 
+    maxlength: 280 
   },
   username: {
     type: String,
-    required: true // This field is required
+    required: true 
   },
   createdAt: {
     type: Date,
-    default: Date.now, // Set the default value to the current timestamp
-    get: (timestamp) => new Date(timestamp).toISOString() // Format the timestamp
+    default: Date.now, 
+    get: (timestamp) => new Date(timestamp).toISOString() // Format timestamp
   }
 }, {
-  toJSON: {
-    getters: true, // Enable getters when converting to JSON
-  },
-  id: false // Disable the id field
+  toJSON: { getters: true }, // Enable getters for JSON
+  id: false // Disable virtual id
 });
 
 // Schema for thoughts
 const thoughtSchema = new Schema({
   thoughtText: {
     type: String,
-    required: true, // This field is required
-    minlength: 1, // Minimum length of 1 character
-    maxlength: 280 // Maximum length of 280 characters
+    required: true, 
+    minlength: 1, 
+    maxlength: 280 
   },
   createdAt: {
     type: Date,
-    default: Date.now, // Set the default value to the current timestamp
-    get: (timestamp) => new Date(timestamp).toISOString() // Format the timestamp
+    default: Date.now, 
+    get: (timestamp) => new Date(timestamp).toISOString() // Format timestamp
   },
   username: {
     type: String,
-    required: true // This field is required
+    required: true 
   },
   reactions: [reactionSchema] // Array of reactions
 }, {
-  toJSON: {
-    virtuals: true, // Enable virtuals when converting to JSON
-    getters: true // Enable getters when converting to JSON
-  },
-  id: false // Disable the id field
+  toJSON: { virtuals: true, getters: true }, 
+  id: false 
 });
 
-// Virtual property to get the number of reactions
+// Virtual for reaction count
 thoughtSchema.virtual('reactionCount').get(function() {
-  return this.reactions.length; // Return the length of the reactions array
+  return this.reactions.length;
 });
 
-// Create the Thought model using the thoughtSchema
+// Create Thought model
 const Thought = model('Thought', thoughtSchema);
 
-// Export the Thought model
-module.exports = Thought;
+module.exports = Thought; 
+

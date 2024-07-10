@@ -5,14 +5,14 @@ module.exports = {
   // Get all thoughts from the database
   getThoughts(req, res) {
     Thought.find()
-      .then((thoughts) => res.json(thoughts)) // Send back all thoughts as JSON
+      .then((thoughts) => res.json(thoughts)) 
       .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
   },
   
   // Get a single thought by its ID
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
-      .select('-__v') // Don't include the version key in the result
+      .select('-__v') 
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' }) // If no thought, send a 404 status
@@ -35,7 +35,7 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'Thought created, but found no user with that ID' }) // If no user, send a 404 status
-          : res.json('Created the thought!') // Otherwise, send a success message
+          : res.json('Created the thought!') 
       )
       .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
   },
@@ -50,7 +50,7 @@ module.exports = {
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with this id!' }) // If no thought, send a 404 status
-          : res.json(thought) // Otherwise, send the updated thought back as JSON
+          : res.json(thought) 
       )
       .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
   },
@@ -70,9 +70,9 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'Thought deleted but no user with this id!' }) // If thought deleted but no user found, send a 404 status
-          : res.json({ message: 'Thought successfully deleted!' }) // Otherwise, send a success message
+          : res.json({ message: 'Thought successfully deleted!' }) 
       )
-      .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
+      .catch((err) => res.status(500).json(err)); 
   },
   
   // Add a reaction to a thought
@@ -84,10 +84,10 @@ module.exports = {
     )
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: 'No thought with this id!' }) // If no thought, send a 404 status
+          ? res.status(404).json({ message: 'No thought with this id!' }) 
           : res.json(thought) // Otherwise, send the updated thought back as JSON
       )
-      .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
+      .catch((err) => res.status(500).json(err));
   },
   
   // Remove a reaction from a thought
@@ -99,9 +99,9 @@ module.exports = {
     )
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: 'No thought with this id!' }) // If no thought, send a 404 status
-          : res.json(thought) // Otherwise, send the updated thought back as JSON
+          ? res.status(404).json({ message: 'No thought with this id!' }) 
+          : res.json(thought) 
       )
-      .catch((err) => res.status(500).json(err)); // If there's an error, send a 500 status with the error
+      .catch((err) => res.status(500).json(err));
   },
 };
