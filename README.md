@@ -1,5 +1,12 @@
 NoSQL Challenge: Social Network API
 
+Github Link:
+https://github.com/sagagi74/MongoDB_NoSQL_Social_Network_API
+Youtube Link:
+https://youtu.be/5j2KSRf1pqA
+
+
+
 MongoDB is a popular choice for many social networks due to its speed with large amounts of data and flexibility with unstructured data
 
 What this App does?
