@@ -1,25 +1,25 @@
 const users = [
-    { username: '', email: 'tim@gmail.com' },
+    { username: 'tim', email: 'tim@gmail.com' },
     { username: 'yong', email: 'yong@gmail.com' }
   ];
   
   const thoughts = [
     {
-      thoughtText: "Here's a cool thought...",
+      thoughtText: "First thought",
       username: 'tim',
       reactions: [
         {
-          reactionBody: "Cool thought, tim!",
+          reactionBody: "Cool, tim!",
           username: 'yong'
         }
       ]
     },
     {
-      thoughtText: "Here's another cool thought...",
+      thoughtText: "another thought...",
       username: 'yong',
       reactions: [
         {
-          reactionBody: "Nice thought, yong!",
+          reactionBody: "bad thought, yong!",
           username: 'tim'
         }
       ]
